@@ -1,4 +1,4 @@
-/*  
+/*
  *  Author: Colum Bennett <colum.bennett@feedhenry.com>
  *  Re-useable Angular service module using FeedHenry Hybird API "$fh.cloud"" call.
  *  See developers docs, http://docs.feedhenry.com/
@@ -15,9 +15,9 @@ angular.module('fhcloud', ['ngResource']).service("fhcloud", function() {
     this.cloud = function(cloudEndpoint, userInput, successCb, errCb) {
       var params = {
         path: cloudEndpoint,
-        method: "GET",
+        method: "POST",
         contentType: "application/json",
-        data: {hello: userInput},
+        data: userInput,
         timeout: 15000
       };
 

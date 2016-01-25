@@ -8,6 +8,12 @@ myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
     $scope.getNumberOfCharacters = function() {
       var userInput = $scope.userInput;
 
+      var inputObj = {
+        name:$scope.nameInput,
+        job:$scope.jobInput,
+        country:$scope.countryInput
+      };
+
       //Notifying the user that the cloud endpoint is being called.
       $scope.noticeMessage = "Calling Cloud Endpoint";
       $scope.textClassName = "text-info";
@@ -29,11 +35,11 @@ myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
         }
       }, function(err){
         //If the function
-        $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
+        $scope.noticeMessage = "Error: " + JSON.stringify(err);
       });
 
       // check if userInput is defined
-      if (userInput) {
+      if ($scope.nameInput && $scope.jobInput && $scope.countryInput) {
         /**
          * Pass the userInput to the module containing the $fh.cloud call.
          *
@@ -41,7 +47,7 @@ myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
          * One of these functions will be called when the $fh.cloud function has completed successully or encountered
          * an error.
          */
-        fhcloud.cloud('hello', userInput, defer.resolve, defer.reject);
+        fhcloud.cloud('database/add', inputObj, defer.resolve, defer.reject);
       }
     };
 });
